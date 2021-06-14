@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LocalStorage</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+
+<script>
+
+
+alunos = [];
+
+
+function adicionar(){
+
+
+var codigo = document.getElementById('txtCodigo').value;
+var nome = document.getElementById('txtNome').value;
+var telefone = document.getElementById('txtTelefone').value;
+var email = document.getElementById('txtEmail').value;
+
+
+var objAluno = JSON.stringify(
+{
+codigo_aluno : codigo,
+nome_aluno : nome,
+telefone_aluno : telefone,
+email_aluno : email
+});
+
+
+alunos.push(objAluno);
+localStorage.setItem("dadosAlunos",JSON.stringify(alunos));
+
+
+alert(alunos);
+
+
+}
+
+
+function listarAlunos(){
+var listaAlunos = localStorage.getItem('dadosAlunos');
+listaAlunos = JSON.parse(listaAlunos);
+dados = "";
+dados+="<table><tr><th>Codigo</th><th>Nome</th><th>telefone</th><th>Email</th></tr>";
+for (var k in listaAlunos){
+var obj = JSON.parse(listaAlunos[k]);
+dados+="<tr><td>"+obj.codigo_aluno+"</td><td></td><td></td><td></td></tr>";
+}
+dados+="</table>";
+document.getElementById('mostrarDados').innerHTML = dados;
+}
+
+
+</script>
+
+
+</head>
+<body>
+<form id="frmCadastro">
+
+<input type="button" value="Listar" onclick="listarAlunos()">
+
+
+</form>
+
+
+<div id="mostrarDados">
+
+
+</div>
+
+
+</body>
+</html>
